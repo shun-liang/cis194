@@ -9,3 +9,8 @@ toDigitsRev n
     | n <= 0 = []
     | n < 10 = [n]
     | otherwise = (n `mod` 10) : toDigitsRev (n `div` 10)
+
+doubleEveryOther :: [Integer] -> [Integer]
+doubleEveryOther [] = []
+doubleEveryOther (first : []) = [first]
+doubleEveryOther (first : second : xs) = first : (2 * second) : doubleEveryOther xs
