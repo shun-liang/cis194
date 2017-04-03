@@ -13,7 +13,7 @@ toDigitsRev n
 doubleEveryOther :: [Integer] -> [Integer]
 doubleEveryOther [] = []
 doubleEveryOther (first : []) = [first]
-doubleEveryOther (first : second : xs) = first : (2 * second) : doubleEveryOther xs
+doubleEveryOther (first : second : xs) = (2 * first) : second : doubleEveryOther xs
 
 sumDigitsOfANum :: Integer -> Integer
 sumDigitsOfANum 0 = 0
@@ -24,3 +24,6 @@ sumDigitsOfANum n
 sumDigits :: [Integer] -> Integer
 sumDigits [] = 0
 sumDigits (x : xs) = sumDigitsOfANum x + sumDigits xs
+
+validate :: Integer -> Bool
+validate n = sumDigits (doubleEveryOther (toDigits n)) `mod` 10 == 0
