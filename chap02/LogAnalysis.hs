@@ -12,3 +12,6 @@ parseMessageWords strList = Unknown (unwords strList)
 
 parseMessage :: String -> LogMessage
 parseMessage string = parseMessageWords (words string)
+
+parse :: String -> [LogMessage]
+parse text = map parseMessage (lines text)
