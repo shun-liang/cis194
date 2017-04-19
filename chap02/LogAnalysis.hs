@@ -15,3 +15,14 @@ parseMessage string = parseMessageWords (words string)
 
 parse :: String -> [LogMessage]
 parse text = map parseMessage (lines text)
+
+insert :: LogMessage -> MessageTree -> MessageTree
+insert (Unknown _) tree = tree
+insert newMessage@(LogMessage _ newTimestamp _) (Node leftBranch message@(LogMessage _ timestamp _) rightBranch)
+  | newTimestamp < timestamp  = Node (insert newMessage leftBranch) message rightBranch
+  | otherwise = Node leftBranch message (insert message rightBranch)
+
+build :: [LogMessage] -> MessageTree
+build [] = Leaf
+build (message : []) = Node Leaf message Leaf
+build (message : messages) = insert message (build messages)
